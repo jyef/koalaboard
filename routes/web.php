@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'ArticleController@index')->name('articles.index');
+Route::resource('/articles', 'ArticleController')->only(['create', 'store', 'show', 'destroy', 'update', 'edit']);
+Route::get('/articles', function () {
+  return redirect()->route('articles.index');
 });

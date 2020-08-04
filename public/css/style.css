@@ -1,0 +1,7 @@
+.form-control::placeholder{
+  color: #cccccc;
+}
+
+.editdelbutton {
+  width: 80px;
+}
