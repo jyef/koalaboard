@@ -5,7 +5,8 @@ jobs:
       - image: circleci/php:7.3-node-browsers
       - image: circleci/mysql:5.7
         
-
+    environment:
+      - DB_CONNECTION: circle_test
     steps:
       - checkout
       - restore_cache:
