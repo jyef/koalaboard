@@ -3,6 +3,20 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.3-node-browsers
+      - image: circleci/mysql:5.7
+        environment:
+          MYSQL_DATABASE: default
+          MYSQL_USER: default
+          MYSQL_PASSWORD: secret
+          MYSQL_ROOT_PASSWORD: root
+    environment:
+      APP_ENV: testing
+      DB_CONNECTION: mysql
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_DATABASE: default
+      DB_USERNAME: default
+      DB_PASSWORD: secret
     steps:
       - checkout
       - restore_cache:
@@ -12,6 +26,11 @@ jobs:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
+      - run:
+        name: Install PHP extensions
+        command: |
+        sudo docker-php-ext-install pdo_mysql
+        sudo docker-php-ext-enable pdo_mysql
       - run:
           name: php test
           command: vendor/bin/phpunit
