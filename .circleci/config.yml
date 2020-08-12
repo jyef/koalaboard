@@ -4,20 +4,13 @@ jobs:
     docker:
       - image: circleci/php:7.3-node-browsers
       - image: circleci/mysql:5.7
-        environment:
-          MYSQL_DATABASE: default
-          MYSQL_USER: default
-          MYSQL_PASSWORD: secret
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_ALLOW_EMPTY_PASSWORD: true
+        
     environment:
-      APP_ENV: testing
-      DB_CONNECTION: mysql
-      DB_HOST: localhost
-      DB_PORT: 3306
-      DB_DATABASE: default
-      DB_USERNAME: default
-      DB_PASSWORD: secret
+      - APP_DEBUG: true
+      - APP_ENV: testing
+      - APP_KEY: base64:W7+EagHFyJA8LkTf8LH+MB2Ia9x4lHPohZTmxhMMJyY=
+      - DB_CONNECTION: circle_test
+      - MYSQL_ALLOW_EMPTY_PASSWORD: true
     steps:
       - checkout
       - restore_cache:
@@ -32,7 +25,7 @@ jobs:
           command: |
             sudo docker-php-ext-install pdo_mysql
             sudo docker-php-ext-enable pdo_mysql
-            dockerize -wait tcp://localhost:3306 -timeout
+            dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: php test
           command: vendor/bin/phpunit
