@@ -9,7 +9,6 @@ jobs:
       - APP_DEBUG: true
       - APP_ENV: testing
       - DB_CONNECTION: circle_test
-      - MYSQL_ALLOW_EMPTY_PASSWORD: true
     steps:
       - checkout
       - restore_cache:
