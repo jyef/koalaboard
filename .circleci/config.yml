@@ -9,6 +9,7 @@ jobs:
           MYSQL_USER: default
           MYSQL_PASSWORD: secret
           MYSQL_ROOT_PASSWORD: root
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
     environment:
       APP_ENV: testing
       DB_CONNECTION: mysql
