@@ -19,7 +19,13 @@ jobs:
       DB_PASSWORD: secret
     steps:
       - checkout
+      - restore_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
       - run: composer install -n --prefer-dist
+      - save_cache:
+          key: composer-v1-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
       - run:
           name: Install PHP extensions
           command: |
