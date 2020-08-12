@@ -31,6 +31,7 @@ jobs:
           command: |
             sudo docker-php-ext-install pdo_mysql
             sudo docker-php-ext-enable pdo_mysql
+            dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: php test
           command: vendor/bin/phpunit
