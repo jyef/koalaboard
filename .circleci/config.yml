@@ -17,9 +17,9 @@ jobs:
       DB_DATABASE: default
       DB_USERNAME: default
       DB_PASSWORD: secret
-        steps:
-          - checkout
-          - restore_cache:
+    steps:
+      - checkout
+      - restore_cache:
           key: composer-v1-{{ checksum "composer.lock" }}
       - run: composer install -n --prefer-dist
       - save_cache:
