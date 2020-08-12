@@ -16,7 +16,11 @@ jobs:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
-      - run: sudo docker-php-ext-enable pdo_mysql
+      - run:
+          name: Install PHP extensions
+          command: |
+            sudo docker-php-ext-install pdo_mysql
+            sudo docker-php-ext-enable pdo_mysql
       - run:
           name: php test
           command: vendor/bin/phpunit
