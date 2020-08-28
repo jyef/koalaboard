@@ -16,7 +16,7 @@
         <div class="col-md-6">
 
           <!-- Default form subscription -->
-          <form method="POST" class="text-center" action="{{ route('articles.update', ['article' => $article]) }}">
+          <form method="POST" class="text-center" action="{{ route('articles.update', ['article' => $article]) }}" enctype="multipart/form-data">
             @method('PATCH')
             @csrf
 
@@ -29,6 +29,12 @@
 
             <!-- Body -->
             <textarea name="body" required class="form-control mb-4" rows="10" placeholder="Body">{{ $article->body }}</textarea>
+
+            <!-- Image Upload -->
+            <image-upload
+              picture-base64='{{ $picture_base64 }}'
+            >
+            </image-upload>
 
             <!-- Sign in button -->
             <button class="btn btn-info btn-block" type="submit">Update</button>
