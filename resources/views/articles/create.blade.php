@@ -16,7 +16,7 @@
         <div class="col-md-6">
 
           <!-- Default form subscription -->
-          <form method="POST" class="text-center" action="{{ route('articles.store') }}">
+          <form method="POST" class="text-center" action="{{ route('articles.store') }}" enctype="multipart/form-data">
             @csrf
 
             <p class="h2 mb-4">New post</p>
@@ -28,6 +28,10 @@
 
             <!-- Body -->
             <textarea name="body" required class="form-control mb-4" rows="10" placeholder="Body">{{ old('body') }}</textarea>
+
+            <!-- Image Upload -->
+            <image-upload>
+            </image-upload>
 
             <!-- Sign in button -->
             <button class="btn btn-info btn-block" type="submit">Submit</button>

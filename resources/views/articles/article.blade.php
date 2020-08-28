@@ -9,8 +9,8 @@
 <div class="col-lg-5 col-xl-4">
 
   <!-- Featured image -->
-  <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4">
-    <img class="img-fluid" src="{{ asset('bubbles.png') }}" alt="Sample image">
+  <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4 img_outer">
+    <img class="img-fluid inner_photo" src="{{ !empty($article->image) ? '/images/' . $article->image : asset('bubbles.png') }}" alt="Sample image">
     <a>
       <div class="mask rgba-white-slight"></div>
     </a>

@@ -29,6 +29,7 @@ class ArticleControllerTest extends TestCase
             // 詳細ページでレコード固有の文字列が閲覧できることを確認
             ->assertSee($article->title)
             ->assertSee($article->body)
+            ->assertSee($article->image)
             // showの画面にeditとdeleteへのリンクがあること
             ->assertSee('href="' . route('articles.edit', ['article' => $article]) . '"', false)
             ->assertSee('action="'. route('articles.destroy', ['article' => $article]) . '"', false);
@@ -47,14 +48,16 @@ class ArticleControllerTest extends TestCase
 
         $title = Str::random(50);
         $body = Str::random(500);
+        $image = null;
         $response = $this->from(route('articles.create'))->post(route('articles.store'), [
             'title' => $title,
             'body' => $body,
+            'image' => $image,
         ]);
         // postした後インデックスにリダイレクトされることを確認
         $response->assertRedirect(route('articles.index'));
         // DBにデータが作成されていることで新規作成処理を保証する
-        $this->assertDatabaseHas('articles', ['title' => $title, 'body' => $body]);
+        $this->assertDatabaseHas('articles', ['title' => $title, 'body' => $body, 'image' => $image]);
     }
 
     public function testCanUpdate()
@@ -74,14 +77,16 @@ class ArticleControllerTest extends TestCase
 
         $title = Str::random(50);
         $body = Str::random(500);
+        $image = null;
         $response = $this->from(route('articles.edit', ['article' => $article]))->patch(route('articles.update', ['article' => $article]), [
             'title' => $title,
             'body' => $body,
+            'image' => $image,
         ]);
         // patchした後詳細ページにリダイレクトされること
         $response->assertRedirect(route('articles.show', ['article' => $article]));
         // レコードに変更した後のレコードがあることで編集処理を保証する
-        $this->assertDatabaseHas('articles', ['title' => $title, 'body' => $body]);
+        $this->assertDatabaseHas('articles', ['title' => $title, 'body' => $body, 'image' => $image]);
     }
 
     public function testCanDelete()
