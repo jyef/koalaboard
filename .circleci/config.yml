@@ -16,6 +16,8 @@ jobs:
           key: composer-v1-{{ checksum "composer.lock" }}
           paths:
             - vendor
+      - run: npm ci
+      - run: npm run dev
       - run:
           name: Install PHP extensions
           command: |
@@ -35,6 +37,8 @@ jobs:
             ssh -o StrictHostKeyChecking=no -t webapp@${HOST_NAME} "cd koalaboard && ¥
               git pull origin master && ¥
               composer install -n --no-dev --prefer-dist && ¥
+              npm ci && ¥
+              npm run prod && ¥
               php artisan migrate --force && ¥
               php artisan config:cache"
 
